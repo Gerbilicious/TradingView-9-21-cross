@@ -1,0 +1,22 @@
+//@version=5
+indicator("Gerby 9/21 new", overlay=true)
+
+// Define input variables
+fast_length = input(9, "Fast Moving Average Length")
+slow_length = input(21, "Slow Moving Average Length")
+
+// Calculate moving averages
+fast_ma = ta.sma(close, fast_length)
+slow_ma = ta.sma(close, slow_length)
+
+// Check for crossovers
+fast_cross_up = ta.crossover(fast_ma, slow_ma)
+fast_cross_down = ta.crossunder(fast_ma, slow_ma)
+
+// Plot arrows
+plotshape(fast_cross_up, title="Fast Cross Up", location=location.belowbar, color=color.green, style=shape.arrowup)
+plotshape(fast_cross_down, title="Fast Cross Down", location=location.abovebar, color=color.red, style=shape.arrowdown)
+
+// Plot moving averages
+plot(fast_ma, title="Fast Moving Average", color=color.blue)
+plot(slow_ma, title="Slow Moving Average", color=color.red)
